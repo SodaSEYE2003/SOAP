@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Fichier de déploiement Axis 1.4
+    Commande de déploiement :
+      java org.apache.axis.client.AdminClient deploy.wsdd
+    ou via l'URL :
+      http://localhost:8080/axis/servlet/AxisServlet
+-->
+<deployment xmlns="http://xml.apache.org/axis/wsdd/"
+            xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+    <service name="ChatRoomService" provider="java:RPC" style="rpc">
+
+        <!-- Classe Java implémentant le service -->
+        <parameter name="className"  value="ChatRoomService"/>
+
+        <!-- Méthodes exposées en SOAP -->
+        <parameter name="allowedMethods"
+                   value="subscribe unsubscribe postMessage getMessages getUsers"/>
+
+        <!--
+            scope="Application" : UNE SEULE instance partagée entre tous les clients
+            (indispensable pour partager la liste des messages et des utilisateurs)
+        -->
+        <parameter name="scope" value="Application"/>
+
+        <!-- Types autorisés en entrée/sortie -->
+        <parameter name="typeMappingVersion" value="1.2"/>
+
+    </service>
+
+</deployment>
